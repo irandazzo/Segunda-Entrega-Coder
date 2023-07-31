@@ -32,6 +32,15 @@ session.post ('/login', async (req, res) => {
         res.send({status: "success", payload: user});
 });
 
+session.post ('/logout', async (req, res) =>{
+    req.session.destroy ((error)=>{ 
+        if(error){
+            return res.status(400).json ({message: "No se pudo desloguear"})
+        }
+        return res.redirect('/')
+    });
+});
+
 session.post('/restartPassword',async(req,res)=>{
     const {email,password} = req.body;
     if(!email||!password) return res.status(400).send({status:"error",error:"Incomplete Values"});

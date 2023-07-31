@@ -27,6 +27,12 @@ router.get('/register', (req, res) => {
 router.get('/login', (req, res) => {
     res.render('login');
 })
+router.get('/logout', async (req, res) => {
+    req.session.destroy(error => {
+        if (!error) res.render('login');
+        else res.send({ status: 'Logout ERROR', body: error });
+    })
+})
 
 router.get('/profile', (req, res) => {
     res.render('profile',{
